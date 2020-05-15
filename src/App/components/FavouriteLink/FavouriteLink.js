@@ -33,7 +33,7 @@ const FavouriteLink = () => {
         <span className="desktopSpan">Favourite</span>
       </div>
 
-      <div className="favourite_block"></div>
+      <div className="favourite_backgroundBlock"></div>
 
       {isOpenFavourite && (
         <div className="opacityBlock" onClick={showFavouriteJokes}></div>

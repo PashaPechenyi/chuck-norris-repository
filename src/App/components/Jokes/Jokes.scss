@@ -124,11 +124,9 @@
 
 // favourite jokes block
 .favouriteJokes {
-  width: 480px;
-  min-width: 480px;
-  height: 100%;
-  min-height: 100vh;
-  max-height: 100vh;
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
   padding: 88px 40px 20px 40px;
   z-index: 3;
   background-color: $background_color_2;
@@ -172,41 +170,35 @@
 
   .jokeTrueCategory {
     background-color: $background_color_2;
-  } 
+  }
 } // favourite jokes block
 
 //При переходе в размер дисплея планшета:
 // 1) Фиксируам блок с фоном .favoriteJokes справа и скрываем его
-// 2) Фиксируем блок с шутками .jokes справа и сверху, ...
-//  указываем его максимальную ширину
+// 2) Фиксируем блок с шутками .jokes справа и сверху
 // и др.
 @media screen and (max-width: 960px) {
   .favouriteJokes {
     display: none;
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
 
     .jokes {
-      position: fixed;
+      position: absolute;
       top: 88px;
-      right: 40px;
-      max-width: 400px;
-      min-width: 280px;
+      right: 0;
+      left: 0;
+
+      padding: 0 40px;
     }
   }
 }
 
-// При переходе вразмер дисплея мобильного устройства:
-// 1) отменяем максимальную ширину блока .jokes
-// и др.
 @media screen and (max-width: 480px) {
   .favouriteJokes {
     .jokes {
-      max-width: 480px;
-      padding: 20px;
-      left: 0;
-      right: 0;
+      padding: 0 20px;
     }
   }
 }
