@@ -1,0 +1,76 @@
+@import "../../../styles/_variables";
+
+// favouriteLink elements
+
+.favourite {
+  position: absolute;
+  top: 40px;
+  right: 356px;
+  z-index: 3;
+  cursor: pointer;
+
+  .desktopSpan {
+    cursor: default;
+  }
+
+  .mobileSpan {
+    display: none;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-bottom: -3px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.favourite_backgroundBlock {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background-color: $background_color_1;
+}
+
+.opacityBlock {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  max-width: 1440px;
+  min-width: 320px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+@media screen and (max-width: 960px) {
+  .favourite {
+    right: 40px;
+
+    .mobileSpan {
+      display: inline;
+    }
+
+    .desktopSpan {
+      display: none;
+    }
+  }
+
+  .favourite_backgroundBlock {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .favourite_backgroundBlock {
+    height: 70px;
+  }
+
+  .favourite {
+    top: 20px;
+    right: 20px;
+  }
+} // favouriteLink elements
