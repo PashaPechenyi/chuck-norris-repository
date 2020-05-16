@@ -54,6 +54,7 @@ export class Form extends Component {
 
     return (
       <div className="searchBlock_form">
+        
         <p className="msi">MSI 2020</p>
         <h2 className="hey">Hey!</h2>
         <h3 className="letsTry">Let's try to find a joke for you:</h3>
