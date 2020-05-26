@@ -1,4 +1,4 @@
-import { ADD_FAVOURITE_JOKE } from "../../constants";
+import { ADD_FAVOURITE_JOKE } from "../constants";
 import { load } from "redux-localstorage-simple";
 
 let JOKES = load({ namespace: "favourite-jokes" });

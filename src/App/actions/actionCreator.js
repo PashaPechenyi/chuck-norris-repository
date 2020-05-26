@@ -1,4 +1,4 @@
-import { ADD_FAVOURITE_JOKE } from "../../constants";
+import { ADD_FAVOURITE_JOKE } from "../constants";
 
 export const addFavouriteJoke = (id, joke) => {
   return {

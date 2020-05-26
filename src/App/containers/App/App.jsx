@@ -1,10 +1,12 @@
 import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { addFavouriteJoke } from "./actions/actionCreator";
+import { addFavouriteJoke } from "../../actions/actionCreator";
 
-import Form from "./components/Form/Form";
-import Joke from "./components/Jokes/Joke";
-import FavouriteLink from "./components/FavouriteLink/FavouriteLink";
+import "./App.scss";
+
+import Form from "../../components/Form/Form";
+import Joke from "../../components/Jokes/Joke";
+import FavouriteLink from "../../components/FavouriteLink/FavouriteLink";
 
 const App = ({ addFavouriteJoke, favouriteJokes }) => {
   const [activeSelectRadio, setActiveSelectRadio] = useState("random");
