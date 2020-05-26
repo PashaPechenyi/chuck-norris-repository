@@ -42,4 +42,4 @@ const FavouriteLink = () => {
   );
 };
 
-export default FavouriteLink;
+export default React.memo(FavouriteLink);

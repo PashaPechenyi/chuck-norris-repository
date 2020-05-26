@@ -1,4 +1,4 @@
-import { ADD_JOKE } from "../../constants";
+import { ADD_FAVOURITE_JOKE } from "../../constants";
 import { load } from "redux-localstorage-simple";
 
 let JOKES = load({ namespace: "favourite-jokes" });
@@ -11,7 +11,7 @@ if (!JOKES || !JOKES.favouriteJokes || !JOKES.favouriteJokes.length) {
 
 const favouriteJokes = (state = JOKES.favouriteJokes, { id, joke, type }) => {
   switch (type) {
-    case ADD_JOKE: {
+    case ADD_FAVOURITE_JOKE: {
       //проверяем есть лм в блоке FavouriteJokes шутка с данным id
       let favouriteNumber = state.findIndex((joke) => joke.id === id);
 

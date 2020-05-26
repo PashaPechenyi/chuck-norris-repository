@@ -1,1 +1,1 @@
-export const ADD_JOKE = "ADD_JOKE";
+export const ADD_FAVOURITE_JOKE = "ADD_FAVOURITE_JOKE";

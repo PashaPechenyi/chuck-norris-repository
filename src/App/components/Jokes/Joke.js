@@ -68,4 +68,4 @@ Joke.defaultProps = {
   isFavourite: false,
 };
 
-export default Joke;
+export default React.memo(Joke);

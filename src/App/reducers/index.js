@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import favouriteJokes from "./jokes";
+import favouriteJokes from "./favouriteJokes";
 
 const rootReducer = combineReducers({ favouriteJokes });
 

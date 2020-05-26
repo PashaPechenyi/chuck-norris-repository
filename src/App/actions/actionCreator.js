@@ -1,8 +1,8 @@
-import { ADD_JOKE } from "../../constants";
+import { ADD_FAVOURITE_JOKE } from "../../constants";
 
-export const addJoke = (id, joke) => {
+export const addFavouriteJoke = (id, joke) => {
   return {
-    type: ADD_JOKE,
+    type: ADD_FAVOURITE_JOKE,
     id,
     joke,
   };

@@ -1,105 +1,90 @@
-import React, { Fragment, Component } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { addJoke } from "./actions/actionCreator";
+import { addFavouriteJoke } from "./actions/actionCreator";
 
 import Form from "./components/Form/Form";
 import Joke from "./components/Jokes/Joke";
 import FavouriteLink from "./components/FavouriteLink/FavouriteLink";
 
-class App extends Component {
-  state = {
-    activeSelectRadio: "random",
-    activeCategory: "",
-    searchValue: "",
-    jokes: [],
+const App = ({ addFavouriteJoke, favouriteJokes }) => {
+  const [activeSelectRadio, setActiveSelectRadio] = useState("random");
+  const change_activeSelectRadio = ({ target: { value } }) => {
+    setActiveSelectRadio(value);
   };
 
-  change_activeSelectRadio = ({ target: { value } }) => {
-    this.setState({
-      activeSelectRadio: value,
-    });
+  const [activeCategory, setActiveCategory] = useState("");
+  const change_activeCategory = (value) => {
+    setActiveCategory(value);
   };
 
-  change_activeCategory = (value) => {
-    this.setState({
-      activeCategory: value,
-    });
+  const [searchValue, setSearchValue] = useState("");
+  const change_searchValue = ({ target: { value } }) => {
+    setSearchValue(value);
   };
 
-  change_searchValue = ({ target: { value } }) => {
-    this.setState({
-      searchValue: value,
-    });
-  };
+  const [jokes, setJokes] = useState([]);
 
-  componentDidMount() {
-    this.fetchData("https://api.chucknorris.io/jokes/random");
-  }
+  useEffect(() => {
+    fetchData("https://api.chucknorris.io/jokes/random");
+  }, []);
 
   // make fetch request with url=fetchURL
-  fetchData = (fetchURL) => {
+  function fetchData(fetchURL) {
     fetch(fetchURL)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        this.addJoke(data);
+        addJoke(data);
       });
-  };
+  }
 
   // adding new jokes to the MAIN block of jokes
-  addJoke = (data) => {
-    const { favouriteJokes } = this.props;
-
-    //Проверяем есть ли добавляемая шутка уже в блоке избранных если есть то отметить как избранную
-    const check_isFavourite = (data) => {
-      if (favouriteJokes.findIndex(({ id }) => id === data.id) !== -1) {
-        data.isFavourite = true;
-      } else {
-        data.isFavourite = false;
-      }
-    };
-
+  function addJoke(data) {
     // если шуток несколько проверяем каждую шутку из массива на избранность и добавляем их
     if (!!data.result) {
       if (data.result.length === 0) {
         alert("Nothing was found!");
-      }
-      for (let i of data.result) {
-        check_isFavourite(i);
+      } else {
+        for (let i of data.result) {
+          check_isFavourite(i);
+        }
       }
 
-      this.setState(({ jokes }) => ({
-        jokes: [...data.result],
-      }));
+      setJokes([...data.result]);
     } else {
       // делаем тоже самое но для 1 шутки
       check_isFavourite(data);
 
-      this.setState(({ jokes }) => ({
-        jokes: [data],
-      }));
+      setJokes([data]);
     }
-  };
+  }
+
+  //Проверяем есть ли добавляемая шутка уже в блоке избранных если есть то отметить как избранную
+  function check_isFavourite(data) {
+    if (favouriteJokes.findIndex(({ id }) => id === data.id) !== -1) {
+      data.isFavourite = true;
+    } else {
+      data.isFavourite = false;
+    }
+  }
 
   // Adding new jokes by click on the button 'Get a joke'
-  addJokesByButton = (event) => {
+  const addJokesByButton = (event) => {
     event.preventDefault();
-    const { searchValue, activeCategory, activeSelectRadio } = this.state;
 
     switch (activeSelectRadio) {
       case "random":
-        this.fetchData("https://api.chucknorris.io/jokes/random");
+        fetchData("https://api.chucknorris.io/jokes/random");
         break;
 
       case "categories":
-        this.fetchData(
+        fetchData(
           `https://api.chucknorris.io/jokes/random?category=${activeCategory}`
         );
         break;
 
       case "search":
         if (searchValue.length >= 3 && searchValue.length <= 120) {
-          this.fetchData(
+          fetchData(
             `https://api.chucknorris.io/jokes/search?query=${searchValue}`
           );
         } else {
@@ -108,79 +93,49 @@ class App extends Component {
         break;
 
       default:
-        this.fetchData("https://api.chucknorris.io/jokes/random");
+        fetchData("https://api.chucknorris.io/jokes/random");
     }
 
-    this.setState({
-      searchValue: "",
-    });
+    setSearchValue("");
   };
 
-  change_isFavourite = (id) => {
-    const { addJoke } = this.props;
+  const change_isFavouriteCallback = useCallback(
+    async function change_isFavourite(id) {
+      await setJokes((jokes) => {
+        let number = jokes.findIndex((joke) => joke.id === id);
+        const activeFavouriteJoke = jokes[number];
 
-    this.setState(({ jokes }) => {
-      let number = jokes.findIndex((joke) => joke.id === id);
+        // add jokes in favouriteJokes block
+        addFavouriteJoke(id, activeFavouriteJoke);
 
-      if (number !== -1) {
-        jokes[number].isFavourite = !jokes[number].isFavourite;
-      }
-      // add jokes in favouriteJokes block
-      addJoke(id, jokes[number]);
+        if (number !== -1) {
+          activeFavouriteJoke.isFavourite = !activeFavouriteJoke.isFavourite;
+        }
 
-      return {
-        jokes: jokes,
-      };
-    });
-  };
+        return jokes;
+      });
+    },
+    [setJokes, addFavouriteJoke]
+  );
 
-  render() {
-    const {
-      activeSelectRadio,
-      activeCategory,
-      searchValue,
-      jokes,
-    } = this.state;
-    const { favouriteJokes } = this.props;
+  return (
+    <Fragment>
+      <main className="main">
+        <div className="main_wrapper">
+          <Form
+            activeSelectRadio={activeSelectRadio}
+            activeCategory={activeCategory}
+            searchValue={searchValue}
+            change_activeSelectRadio={change_activeSelectRadio}
+            change_activeCategory={change_activeCategory}
+            change_searchValue={change_searchValue}
+            addJoke={addJokesByButton}
+          />
 
-    return (
-      <Fragment>
-        <main className="main">
-          <div className="main_wrapper">
-            <Form
-              activeSelectRadio={activeSelectRadio}
-              activeCategory={activeCategory}
-              searchValue={searchValue}
-              change_activeSelectRadio={this.change_activeSelectRadio}
-              change_activeCategory={this.change_activeCategory}
-              change_searchValue={this.change_searchValue}
-              addJoke={this.addJokesByButton}
-            />
-
-            <div className="jokes">
-              {jokes.map(
-                ({ categories, id, updated_at, url, value, isFavourite }) => {
-                  return (
-                    <Joke
-                      key={id}
-                      id={id}
-                      category={categories}
-                      updated_at={updated_at}
-                      value={value}
-                      url={url}
-                      isFavourite={isFavourite}
-                      change_isFavourite={this.change_isFavourite}
-                    />
-                  );
-                }
-              )}
-            </div>
-          </div>
-
-          <div className="favouriteJokes">
-            <div className="jokes">
-              {favouriteJokes.map(
-                ({ categories, id, updated_at, url, value, isFavourite }) => (
+          <div className="jokes">
+            {jokes.map(
+              ({ categories, id, updated_at, url, value, isFavourite }) => {
+                return (
                   <Joke
                     key={id}
                     id={id}
@@ -189,23 +144,42 @@ class App extends Component {
                     value={value}
                     url={url}
                     isFavourite={isFavourite}
-                    change_isFavourite={this.change_isFavourite}
+                    change_isFavourite={change_isFavouriteCallback}
                   />
-                )
-              )}
-            </div>
+                );
+              }
+            )}
           </div>
+        </div>
 
-          <FavouriteLink />
-        </main>
-      </Fragment>
-    );
-  }
-}
+        <div className="favouriteJokes">
+          <div className="jokes">
+            {favouriteJokes.map(
+              ({ categories, id, updated_at, url, value, isFavourite }) => (
+                <Joke
+                  key={id}
+                  id={id}
+                  category={categories}
+                  updated_at={updated_at}
+                  value={value}
+                  url={url}
+                  isFavourite={isFavourite}
+                  change_isFavourite={change_isFavouriteCallback}
+                />
+              )
+            )}
+          </div>
+        </div>
+
+        <FavouriteLink />
+      </main>
+    </Fragment>
+  );
+};
 
 export default connect(
   (store) => ({
     favouriteJokes: store.favouriteJokes,
   }),
-  { addJoke }
+  { addFavouriteJoke }
 )(App);
