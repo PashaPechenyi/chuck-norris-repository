@@ -2,6 +2,8 @@ import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
 import { addFavouriteJoke } from "../../actions/actionCreator";
 
+import "./App.scss";
+
 import Form from "../../components/Form/Form";
 import Joke from "../../components/Jokes/Joke";
 import FavouriteLink from "../../components/FavouriteLink/FavouriteLink";

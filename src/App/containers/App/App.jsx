@@ -103,12 +103,11 @@ const App = ({ addFavouriteJoke, favouriteJokes }) => {
 
   const change_isFavouriteCallback = useCallback(
     async function change_isFavourite(id) {
+      let activeFavouriteJoke;
+
       await setJokes((jokes) => {
         let number = jokes.findIndex((joke) => joke.id === id);
-        const activeFavouriteJoke = jokes[number];
-
-        // add jokes in favouriteJokes block
-        addFavouriteJoke(id, activeFavouriteJoke);
+        activeFavouriteJoke = jokes[number];
 
         if (number !== -1) {
           activeFavouriteJoke.isFavourite = !activeFavouriteJoke.isFavourite;
@@ -116,6 +115,9 @@ const App = ({ addFavouriteJoke, favouriteJokes }) => {
 
         return jokes;
       });
+
+      // add jokes in favouriteJokes block
+      addFavouriteJoke(id, activeFavouriteJoke);
     },
     [setJokes, addFavouriteJoke]
   );
