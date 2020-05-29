@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/chuck-norris-repository/static/css/main.5e692fdf.chunk.css",
+    "main.js": "/chuck-norris-repository/static/js/main.7e58ed1e.chunk.js",
+    "main.js.map": "/chuck-norris-repository/static/js/main.7e58ed1e.chunk.js.map",
+    "runtime-main.js": "/chuck-norris-repository/static/js/runtime-main.da3bbe9c.js",
+    "runtime-main.js.map": "/chuck-norris-repository/static/js/runtime-main.da3bbe9c.js.map",
+    "static/js/2.221b8bc1.chunk.js": "/chuck-norris-repository/static/js/2.221b8bc1.chunk.js",
+    "static/js/2.221b8bc1.chunk.js.map": "/chuck-norris-repository/static/js/2.221b8bc1.chunk.js.map",
+    "index.html": "/chuck-norris-repository/index.html",
+    "precache-manifest.19119ba3af0de97811e7c680a9ddbe66.js": "/chuck-norris-repository/precache-manifest.19119ba3af0de97811e7c680a9ddbe66.js",
+    "service-worker.js": "/chuck-norris-repository/service-worker.js",
+    "static/css/main.5e692fdf.chunk.css.map": "/chuck-norris-repository/static/css/main.5e692fdf.chunk.css.map",
+    "static/js/2.221b8bc1.chunk.js.LICENSE.txt": "/chuck-norris-repository/static/js/2.221b8bc1.chunk.js.LICENSE.txt",
+    "static/media/closeIcon.png": "/chuck-norris-repository/static/media/closeIcon.09d6d5da.png",
+    "static/media/commentIcon.png": "/chuck-norris-repository/static/media/commentIcon.8f33806e.png",
+    "static/media/menuIcon.png": "/chuck-norris-repository/static/media/menuIcon.d353f6c8.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.da3bbe9c.js",
+    "static/js/2.221b8bc1.chunk.js",
+    "static/css/main.5e692fdf.chunk.css",
+    "static/js/main.7e58ed1e.chunk.js"
+  ]
+}
