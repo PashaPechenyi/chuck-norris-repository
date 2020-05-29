@@ -1,6 +1,6 @@
 # Chuck Norris Jokes
-## Created by React.js
-## You can peruce with the completed test task by the following link: http://chucknorris.zzz.com.ua/
+## Created by React.js with (Redux, Sass)
+## You can peruce with the completed test task by the following link: https://pashapechenyi.github.io/chuck-norris-repository/
 ## Логика добавления шуток в блок избранных:
 ### * При получении шуток для вывода в общий блок с шутками добавляем каждому обькту с данными о шутке свойство isFavourite со значением false, после чего проверяем существует ли эта шутка уже в блоке избранных, если существует- то меняем isFavourite на true.     
 ### * При нажатии на иконку добавления/удаления шутки из блока избранных- ищем данную шутку по id в основном блоке всех шуток: если она там есть- меняем значение свойства isFavourite на противоположный. 
